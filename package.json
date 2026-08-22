@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "postinstall": "prisma generate",
+    "vercel-build": "npm run db:bootstrap && next build",
+    "db:bootstrap": "prisma migrate deploy && tsx prisma/seed.ts && tsx scripts/seed-demo.ts --if-missing",
     "db:deploy": "prisma migrate deploy",
     "dev": "next dev",
     "build": "next build",

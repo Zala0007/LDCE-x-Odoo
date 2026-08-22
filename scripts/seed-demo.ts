@@ -5,6 +5,17 @@ const db = new PrismaClient();
 const email = "he.demo@globetrotter.local";
 
 async function main() {
+  if (process.argv.includes("--if-missing")) {
+    const existingUser = await db.user.findUnique({
+      where: { email },
+      select: { id: true },
+    });
+    if (existingUser) {
+      console.log(`Production fixtures already exist for ${email}; skipping.`);
+      return;
+    }
+  }
+
   const cities = await db.city.findMany({
     where: {
       slug: {
