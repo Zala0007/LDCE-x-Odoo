@@ -11,10 +11,10 @@
 | City search | PDF §7, prompt M2 | `/trips/[tripId]/cities`, `/explore` | City, TripStop | discovery repository/cards | discovery filter tests | M2 complete |
 | Activity search | PDF §8, prompt M2 | `/trips/[tripId]/activities` | Activity, ItineraryActivity | activity repository/cards | discovery filter tests | M2 complete |
 | Saved destinations | PDF §12, prompt M2 | `/saved` | SavedDestination | destination actions | schema/build tests | M2 complete |
-| Itinerary builder | PDF §5, prompt M3 | `/trips/[tripId]/builder` | TripStop, ItineraryActivity | builder + ordering service | builder tests | Planned M3 |
-| Itinerary view | PDF §6, prompt M3 | `/trips/[tripId]` | Trip, TripStop, ItineraryActivity | itinerary timeline | render tests | Planned M3 |
-| Budget breakdown | PDF §9, prompt M3 | `/trips/[tripId]/budget` | Trip, stops, activities | budget service/charts | calculation tests | Planned M3 |
-| Calendar/timeline | PDF §10, prompt M3 | `/trips/[tripId]/calendar` | ItineraryActivity | calendar/timeline | interaction tests | Planned M3 |
+| Itinerary builder | PDF §5, prompt M3 | `/trips/[tripId]/builder` | TripStop, ItineraryActivity | transactional itinerary service + dnd-kit builder | validator/build tests | M3 complete |
+| Itinerary view | PDF §6, prompt M3 | `/trips/[tripId]` | Trip, TripStop, ItineraryActivity | day timeline | budget/build tests | M3 complete |
+| Budget breakdown | PDF §9, prompt M3 | `/trips/[tripId]/budget` | Trip, stops, activities | central budget service + Recharts | budget service tests | M3 complete |
+| Calendar/timeline | PDF §10, prompt M3 | `/trips/[tripId]/calendar` | ItineraryActivity | calendar/timeline + persistent ordering | validator/build tests | M3 complete |
 | Public sharing/copy | PDF §11, prompt M4 | `/share/[slug]` | PublicShareLink | sharing/copy service | sharing tests | Planned M4 |
 | Friend sharing | Problem statement, prompt M4 | trip settings | TripShare | sharing service | authorization tests | Planned M4 |
 | Profile/settings | PDF §12, prompt M4 | `/profile` | User, UserPreference | profile form/actions | profile tests | Planned M4 |

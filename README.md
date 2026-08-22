@@ -4,14 +4,14 @@ GlobeTrotter is a responsive multi-city travel planner for shaping itineraries, 
 
 ## Current checkpoint
 
-Members 1–2 / V + Hi: application foundation, secure authentication, owned-trip CRUD, database-backed dashboard, destination/activity discovery, saved cities, and a travel catalog of 25+ cities with 100+ activities.
+Members 1-3 / V + Hi + K: application foundation, secure authentication, trip CRUD, discovery and saved cities, a 25-city/100-activity catalog, a transactional drag-and-drop itinerary builder, day-wise itinerary, centralized budget engine, charts, and calendar/timeline views.
 
 ## Technology
 
 - Next.js App Router, React, TypeScript, Tailwind CSS
 - PostgreSQL, Prisma, Auth.js
 - Zod and server-side validation boundaries
-- Lucide icons and Vitest; later modules add Recharts, dnd-kit, and Playwright
+- Lucide icons, Recharts, dnd-kit, and Vitest; the final module adds Playwright
 
 ## Local setup
 
