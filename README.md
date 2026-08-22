@@ -4,7 +4,7 @@ GlobeTrotter is a responsive multi-city travel planner for shaping itineraries, 
 
 ## Current checkpoint
 
-Members 1–2 / V + Hi: application foundation, secure authentication, owned-trip CRUD, database-backed dashboard, destination/activity discovery, saved cities, and a travel catalog of 25 cities with 100 activities.
+Members 1–2 / V + Hi: application foundation, secure authentication, owned-trip CRUD, database-backed dashboard, destination/activity discovery, saved cities, and a travel catalog of 25+ cities with 100+ activities.
 
 ## Technology
 
