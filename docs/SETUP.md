@@ -53,3 +53,23 @@ npm run test:e2e
 ```
 
 The Playwright suite exercises public pages on desktop Chromium and a Pixel 7 viewport. Authenticated journeys additionally require a migrated and seeded database.
+
+## Test reports
+
+```bash
+npm run test:reports
+npm run test:e2e
+```
+
+Reports are centralized under [`test-reports/`](../test-reports/README.md). The unit command writes Vitest JSON; the E2E command creates a production build and writes Playwright HTML/JSON evidence.
+
+## Documentation screenshots
+
+To reproduce the gallery after migration and catalog seeding:
+
+```bash
+npx playwright install chromium
+npm run docs:screenshots
+```
+
+This creates or resets only `he.demo@globetrotter.local`, prepares realistic local fixture data, and captures 13 images under `docs/assets/screenshots/`. The fixture credential exists only for local documentation generation and must never be deployed as a real account.

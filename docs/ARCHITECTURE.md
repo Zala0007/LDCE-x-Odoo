@@ -12,20 +12,31 @@ GlobeTrotter is a server-first Next.js application. React Server Components read
 6. `lib/auth/`: session helpers and authorization policy.
 7. `lib/storage/`: replaceable cover-image boundary.
 8. `prisma/`: schema, migrations, and seed data.
-9. `tests/`: unit, integration, and later end-to-end coverage.
+9. `tests/unit/`: deterministic validator, policy, security, catalog, itinerary, and budget coverage.
+10. `tests/e2e/`: production-build browser journeys across desktop and mobile viewports.
+11. `test-reports/`: committed JSON, HTML, and human-readable release evidence.
 
 ## Security model
 
 - Credentials are hashed with bcrypt and never returned by repository projections.
 - Auth.js uses signed JWT sessions for credentials compatibility and the Prisma adapter keeps provider/account data relational.
 - Protected layouts redirect anonymous requests before rendering private data.
-- Every trip mutation resolves the authenticated user and includes `ownerId` in its database predicate.
+- Every trip mutation resolves the authenticated user. Owner-only operations include `ownerId` in database predicates; itinerary collaboration additionally requires an explicit `EDITOR` share.
 - Reset tokens use cryptographically secure random bytes; only a SHA-256 digest is stored.
 - Inputs are parsed by Zod on the server. Client checks improve feedback but are not trusted.
 
 ## Domain model
 
-`User` owns `Trip`; a trip contains ordered `TripStop` records, each linked to `City`. Ordered `ItineraryActivity` records connect stops to catalog `Activity` records. `TripShare` and `PublicShareLink` model private and public sharing separately. `SavedDestination` is a user-city join. `UserPreference` is a one-to-one extension.
+`User` owns `Trip`; a trip contains ordered `TripStop` records, each linked to `City`. Ordered `ItineraryActivity` records connect stops to catalog `Activity` records. `TripShare` and `PublicShareLink` model private and public sharing separately. `SavedDestination` is a user-city join. `UserPreference` is a one-to-one extension. `CommunityPost` belongs to an author and can optionally reference a trip.
+
+## Sharing permissions
+
+| Relationship | Read itinerary | Edit itinerary | Manage trip/shares | Copy trip |
+| --- | --- | --- | --- | --- |
+| Owner | Yes | Yes | Yes | Yes |
+| Editor share | Yes | Yes | No | Yes |
+| Viewer share | Yes | No | No | Yes |
+| Active public link | Yes | No | No | Yes, after authentication |
 
 ## Extension points
 
