@@ -79,6 +79,7 @@ try {
     ["my-trips", "/trips"],
     ["new-trip", "/trips/new"],
     ["itinerary", `/trips/${trip.id}`],
+    ["route-map", `/trips/${trip.id}/map`],
     ["builder", `/trips/${trip.id}/builder`],
     ["budget", `/trips/${trip.id}/budget`],
     ["calendar", `/trips/${trip.id}/calendar`],
@@ -89,6 +90,14 @@ try {
   ];
   for (const [name, route] of pages) {
     await page.goto(`${origin}${route}`, { waitUntil: "networkidle" });
+    if (name === "route-map") {
+      await page.locator(".maplibregl-canvas").waitFor();
+      await page
+        .locator(".route-map-loading")
+        .waitFor({ state: "detached", timeout: 15000 })
+        .catch(() => {});
+      await page.waitForTimeout(800);
+    }
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.screenshot({
       path: path.join(output, `${name}.png`),
@@ -136,9 +145,23 @@ try {
     path: path.join(output, "dashboard-mobile.png"),
     fullPage: false,
   });
+  await mobilePage.goto(`${origin}/trips/${trip.id}/map`, {
+    waitUntil: "networkidle",
+  });
+  await mobilePage.locator(".maplibregl-canvas").waitFor();
+  await mobilePage
+    .locator(".route-map-loading")
+    .waitFor({ state: "detached", timeout: 15000 })
+    .catch(() => {});
+  await mobilePage.waitForTimeout(800);
+  await mobilePage.evaluate(() => window.scrollTo(0, 0));
+  await mobilePage.screenshot({
+    path: path.join(output, "route-map-mobile.png"),
+    fullPage: false,
+  });
   await mobile.close();
 
-  console.log(`Captured ${pages.length + 5} screenshots in ${output}.`);
+  console.log(`Captured ${pages.length + 6} screenshots in ${output}.`);
 } finally {
   await browser.close();
   server.kill("SIGTERM");

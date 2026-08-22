@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { cityCoordinates } from "@/lib/data/city-coordinates";
 import { buildActivities, citySeeds } from "@/lib/data/travel-data";
 
 describe("travel seed integrity", () => {
@@ -12,6 +13,12 @@ describe("travel seed integrity", () => {
       expect(city.popularityScore).toBeLessThanOrEqual(100);
       expect(city.estimatedMealCost).toBeGreaterThan(0);
       expect(city.estimatedStayCost).toBeGreaterThan(0);
+      const coordinates = cityCoordinates[city.slug];
+      expect(coordinates).toBeDefined();
+      expect(coordinates.latitude).toBeGreaterThanOrEqual(-90);
+      expect(coordinates.latitude).toBeLessThanOrEqual(90);
+      expect(coordinates.longitude).toBeGreaterThanOrEqual(-180);
+      expect(coordinates.longitude).toBeLessThanOrEqual(180);
     }
   });
 

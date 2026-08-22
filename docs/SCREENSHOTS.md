@@ -1,6 +1,6 @@
 # Website screenshots
 
-These screenshots were captured from the production build at 1440×1000, plus a 390×844 mobile dashboard. They use a reproducible local fixture with realistic trips, itinerary activities, community stories, saved cities, sharing, and admin analytics.
+These 19 screenshots were captured from the production build at 1440×1000 and 390×844 mobile viewports. They use a reproducible local fixture with realistic trips, itinerary activities, community stories, saved cities, sharing, and admin analytics.
 
 ## Authentication
 
@@ -29,6 +29,14 @@ These screenshots were captured from the production build at 1440×1000, plus a 
 ### Trip itinerary
 
 [![Trip itinerary](./assets/screenshots/itinerary.png)](./assets/screenshots/itinerary.png)
+
+### Interactive route map
+
+[![Interactive route map](./assets/screenshots/route-map.png)](./assets/screenshots/route-map.png)
+
+### Responsive route map
+
+[![Responsive route map](./assets/screenshots/route-map-mobile.png)](./assets/screenshots/route-map-mobile.png)
 
 ### Drag-and-drop itinerary builder
 

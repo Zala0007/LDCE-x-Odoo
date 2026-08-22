@@ -29,5 +29,3 @@ next-env.d.ts
 
 # temporary design inspection artifacts
 /.chrome-profile/
-/excalidraw-page.html
-/excalidraw.png

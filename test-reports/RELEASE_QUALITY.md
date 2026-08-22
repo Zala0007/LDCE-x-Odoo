@@ -10,10 +10,10 @@ Application: Next.js 15.5.23, React 19, Prisma 6.19.3
 | --- | --- | --- |
 | ESLint | Pass, 0 errors | [Static analysis report](./static-analysis/README.md) |
 | TypeScript | Pass, strict `tsc --noEmit` | [Static analysis report](./static-analysis/README.md) |
-| Unit tests | Pass, 31/31 across 10 suites | [Vitest JSON](./unit/results.json) |
+| Unit tests | Pass, 34/34 across 11 files | [Vitest JSON](./unit/results.json) |
 | Browser tests | Pass, 6/6 across desktop and mobile | [Playwright HTML](./e2e/html/index.html) · [JSON](./e2e/results.json) |
-| Production build | Pass, 23 application routes | [Static analysis report](./static-analysis/README.md) |
-| Prisma migration | Pass against an empty PostgreSQL database | [`migration.sql`](../prisma/migrations/20260822120000_initial_release/migration.sql) |
+| Production build | Pass, 24 application routes | [Static analysis report](./static-analysis/README.md) |
+| Prisma migrations | Pass, including persisted city coordinates | [`prisma/migrations`](../prisma/migrations/) |
 | Curated seed | Pass, 25 cities and 100 activities | [`seed.ts`](../prisma/seed.ts) |
 
 ## Tested behavior
@@ -23,9 +23,10 @@ Application: Next.js 15.5.23, React 19, Prisma 6.19.3
 - Owner authorization and trip input validation
 - Discovery filtering and curated catalog integrity
 - Ordered stop/activity validation and centralized budget calculations
+- Route-distance calculations and coordinate integrity for all 25 cities
 - Profile, community-post, and viewer/editor sharing validation
 - Landing, login, and registration experiences at desktop Chrome and Pixel 7 dimensions
-- Production compilation of authenticated, public sharing, community, and admin routes
+- Production compilation of authenticated, interactive map, public sharing, community, and admin routes
 
 ## Dependency audit note
 

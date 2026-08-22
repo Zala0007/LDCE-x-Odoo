@@ -12,6 +12,7 @@ tests/
 │   ├── itinerary-validator.test.ts
 │   ├── password-service.test.ts
 │   ├── profile-validator.test.ts
+│   ├── route-geometry.test.ts
 │   ├── sharing-validator.test.ts
 │   ├── travel-data.test.ts
 │   └── trip-validator.test.ts
@@ -27,10 +28,10 @@ Unit tests remain fast and database-independent. Playwright uses an optimized pr
 
 | Layer | Status | Coverage highlight |
 | --- | --- | --- |
-| Unit | 31/31 passed | Authentication, authorization, passwords, trip/itinerary/profile/sharing schemas, catalog, discovery, budget |
+| Unit | 34/34 passed | Authentication, authorization, passwords, trip/itinerary/profile/sharing schemas, catalog coordinates, route distance, discovery, budget |
 | E2E | 6/6 passed | Landing, login, and complete registration form on desktop and mobile |
 | Static | Passed | ESLint and strict TypeScript |
-| Build | Passed | 23 App Router routes compiled for production |
+| Build | Passed | 24 application routes compiled for production |
 | Data | Passed | Release migration, 25 cities, 100 activities |
 
 ## Commands

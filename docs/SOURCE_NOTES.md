@@ -23,3 +23,9 @@ The public share route was reached on 22 August 2026, but the collaborative canv
 - Cover photos are persisted as image URLs in Member 1. A storage abstraction boundary is reserved for managed uploads.
 - Password reset is implemented as a secure token lifecycle. Development delivery is surfaced on-screen because no email provider was supplied; a production email provider can be attached to the same service later.
 - Advanced AI features are explicitly out of scope for Phase 1.
+
+## Mapping references
+
+- [MapLibre GL JS GeoJSON line example](https://maplibre.org/maplibre-gl-js/docs/examples/add-a-geojson-line/) informed the route source and layered line rendering.
+- [MapLibre GL JS line-bounds example](https://maplibre.org/maplibre-gl-js/docs/examples/fit-to-the-bounds-of-a-linestring/) informed camera fitting across ordered stops.
+- OpenFreeMap supplies the visual basemap at runtime and requires no application API key. The itinerary stop list, route metrics, budget context, and an explicit fallback remain available if third-party map tiles cannot load.

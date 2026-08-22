@@ -171,6 +171,8 @@ model City {
   popularityScore   Int
   estimatedMealCost Float
   estimatedStayCost Float
+  latitude          Float?
+  longitude         Float?
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
   activities        Activity[]

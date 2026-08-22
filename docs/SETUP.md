@@ -72,4 +72,4 @@ npx playwright install chromium
 npm run docs:screenshots
 ```
 
-This creates or resets only `he.demo@globetrotter.local`, prepares realistic local fixture data, and captures 13 images under `docs/assets/screenshots/`. The fixture credential exists only for local documentation generation and must never be deployed as a real account.
+This creates or resets only `he.demo@globetrotter.local`, prepares realistic local fixture data, and captures 19 images under `docs/assets/screenshots/`. The fixture credential exists only for local documentation generation and must never be deployed as a real account.

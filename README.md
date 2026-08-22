@@ -13,6 +13,7 @@ The implementation follows the supplied product brief and 12-screen wireframe wh
 - Search, grouping, sorting, filters, estimated pricing, and saved destinations
 - Transactional drag-and-drop itinerary builder with date and ownership integrity
 - Day-by-day itinerary, budget analytics, charts, calendar, and timeline views
+- Interactive MapLibre route maps with numbered stops, distance, cost, and activity context
 - Private viewer/editor collaboration and discoverable shared trips
 - Public read-only itinerary links with safe trip duplication
 - Searchable traveler community and role-protected admin analytics
@@ -36,11 +37,15 @@ The implementation follows the supplied product brief and 12-screen wireframe wh
 | --- | --- |
 | [![Budget analytics](docs/assets/screenshots/budget.png)](docs/assets/screenshots/budget.png) | [![Public itinerary](docs/assets/screenshots/public-itinerary.png)](docs/assets/screenshots/public-itinerary.png) |
 
+| Interactive route map | Responsive map |
+| --- | --- |
+| [![Interactive route map](docs/assets/screenshots/route-map.png)](docs/assets/screenshots/route-map.png) | [![Responsive route map](docs/assets/screenshots/route-map-mobile.png)](docs/assets/screenshots/route-map-mobile.png) |
+
 | Community | Admin analytics |
 | --- | --- |
 | [![Community](docs/assets/screenshots/community.png)](docs/assets/screenshots/community.png) | [![Admin analytics](docs/assets/screenshots/admin.png)](docs/assets/screenshots/admin.png) |
 
-See the [complete 17-screen desktop/mobile gallery](docs/SCREENSHOTS.md), including authentication, Explore, My Trips, calendar, sharing, profile trip collections, and mobile dashboard captures.
+See the [complete 19-screen desktop/mobile gallery](docs/SCREENSHOTS.md), including authentication, Explore, My Trips, interactive route maps, calendar, sharing, profile trip collections, and mobile captures.
 
 ## Technology
 
@@ -51,7 +56,7 @@ See the [complete 17-screen desktop/mobile gallery](docs/SCREENSHOTS.md), includ
 | Data | PostgreSQL, Prisma ORM, committed SQL migration |
 | Authentication | Auth.js credentials flow, bcrypt password hashing, JWT sessions |
 | Validation | Zod schemas at server mutation boundaries |
-| Interaction | dnd-kit, Recharts, Lucide icons |
+| Interaction | MapLibre GL, OpenFreeMap tiles, dnd-kit, Recharts, Lucide icons |
 | Quality | ESLint, strict TypeScript, Vitest, Playwright |
 | Delivery | Next.js standalone output, Dockerfile, Docker Compose |
 
@@ -93,7 +98,7 @@ Detailed local, Docker, admin, and production guidance is in the [setup and depl
 | Landing and authentication | `/`, `/login`, `/signup` | Public |
 | Dashboard and trip library | `/dashboard`, `/trips` | Authenticated |
 | Discovery and saved places | `/explore`, `/saved` | Authenticated |
-| Trip overview and itinerary | `/trips/[tripId]`, `/builder` | Owner, viewer, or editor |
+| Trip overview, route map, and itinerary | `/trips/[tripId]`, `/trips/[tripId]/map`, `/trips/[tripId]/builder` | Owner, viewer, or editor |
 | Budget and calendar | `/trips/[tripId]/budget`, `/calendar` | Owner, viewer, or editor |
 | Sharing controls | `/trips/[tripId]/share` | Owner |
 | Public itinerary | `/share/[slug]` | Public link |
@@ -108,9 +113,9 @@ The latest release checkpoint is fully green:
 | --- | --- | --- |
 | ESLint | Passed, 0 errors | [Static analysis](test-reports/static-analysis/README.md) |
 | Strict TypeScript | Passed, 0 errors | [Static analysis](test-reports/static-analysis/README.md) |
-| Unit tests | **31/31 passed**, 10 test files | [Vitest JSON](test-reports/unit/results.json) |
+| Unit tests | **34/34 passed**, 11 test files | [Vitest JSON](test-reports/unit/results.json) |
 | End-to-end tests | **6/6 passed**, desktop Chromium + Pixel 7 | [Playwright HTML](test-reports/e2e/html/index.html) · [JSON](test-reports/e2e/results.json) |
-| Production build | Passed, 23 routes compiled | [Static analysis](test-reports/static-analysis/README.md) |
+| Production build | Passed, 24 application routes compiled | [Static analysis](test-reports/static-analysis/README.md) |
 | Database migration/seed | Passed, 25 cities + 100 activities | [Release quality](test-reports/RELEASE_QUALITY.md) |
 
 All committed reports live in one place: [`test-reports/`](test-reports/README.md). The complete test strategy, folder conventions, coverage highlights, regeneration commands, and limitations are documented in [`docs/TESTING.md`](docs/TESTING.md).
@@ -132,7 +137,7 @@ npm run test:e2e
 
 ```text
 tests/
-├── unit/                  # Validators, authorization, security, data, itinerary, budget
+├── unit/                  # Validators, authorization, security, data, itinerary, maps, budget
 ├── e2e/                   # Desktop/mobile browser journeys and server teardown
 └── setup.ts               # Shared Vitest DOM setup
 
@@ -171,7 +176,7 @@ npx playwright install chromium
 npm run docs:screenshots
 ```
 
-This command builds the production application, prepares a dedicated local documentation fixture (`he.demo@globetrotter.local`), and refreshes the 13 images under `docs/assets/screenshots/`. The fixture is for local documentation only and must not be used as a production credential.
+This command builds the production application, prepares a dedicated local documentation fixture (`he.demo@globetrotter.local`), and refreshes the 19 images under `docs/assets/screenshots/`. The fixture is for local documentation only and must not be used as a production credential.
 
 ## Documentation index
 
@@ -193,4 +198,4 @@ This command builds the production application, prepares a dedicated local docum
 | 3 | K | Itinerary builder, budget engine, calendar/timeline |
 | 4 | He | Sharing, profile, community, admin, QA reports, screenshots, deployment |
 
-The current wireframe-completion and design checkpoint belongs to **V** and should be committed and pushed from the V account. Automation does not commit or push repository changes.
+The current interactive-map, responsive-design, documentation, and QA checkpoint belongs to **He** and should be committed and pushed from the He account. Automation does not commit or push repository changes.

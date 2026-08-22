@@ -12,7 +12,7 @@
 | 6 | User trip listing | `/trips` | Ongoing, upcoming, draft, and completed groups with search/filter/group/sort |
 | 7 | User profile | `/profile` | Editable traveler details, preplanned trips, previous trips, saved destinations |
 | 8 | Activity/city search | `/explore`, `/trips/[tripId]/cities`, `/trips/[tripId]/activities` | Search, group, filters, sorting, detailed cards, add/save actions |
-| 9 | Itinerary and budget view | `/trips/[tripId]`, `/trips/[tripId]/budget` | Day timeline, activities, expense totals, category breakdown, charts |
+| 9 | Itinerary, route, and budget view | `/trips/[tripId]`, `/trips/[tripId]/map`, `/trips/[tripId]/budget` | Interactive mapped route, numbered stops, distances, day timeline, activities, expense totals, category breakdown, charts |
 | 10 | Community tab | `/community` | Story creation, linked trips, search, country/type filters, grouping, sorting |
 | 11 | Calendar view | `/trips/[tripId]/calendar` | Month calendar and ordered activity timeline |
 | 12 | Admin panel | `/admin` | Direct section navigation, user management, popular cities/activities, trends and analytics |
@@ -33,6 +33,7 @@ Every surface uses the responsive top navigation; there is no side navigation.
 | Itinerary builder | PDF §5, prompt M3 | `/trips/[tripId]/builder` | TripStop, ItineraryActivity | transactional itinerary service + dnd-kit builder | validator/build tests | M3 complete |
 | Itinerary view | PDF §6, prompt M3 | `/trips/[tripId]` | Trip, TripStop, ItineraryActivity | day timeline | budget/build tests | M3 complete |
 | Budget breakdown | PDF §9, prompt M3 | `/trips/[tripId]/budget` | Trip, stops, activities | central budget service + Recharts | budget service tests | M3 complete |
+| Interactive route map | Product enhancement | `/trips/[tripId]/map` | City coordinates, TripStop | MapLibre route line, markers, and distance service | route geometry + build tests | Complete |
 | Calendar/timeline | PDF §10, prompt M3 | `/trips/[tripId]/calendar` | ItineraryActivity | calendar/timeline + persistent ordering | validator/build tests | M3 complete |
 | Public sharing/copy | PDF §11, prompt M4 | `/share/[slug]` | PublicShareLink | sharing/copy service | sharing validators + E2E | M4 complete |
 | Friend sharing | Problem statement, prompt M4 | `/trips/[tripId]/share` | TripShare | sharing service + permission-aware itinerary | sharing + authorization tests | M4 complete |

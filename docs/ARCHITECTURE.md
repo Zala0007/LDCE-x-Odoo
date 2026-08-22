@@ -27,7 +27,11 @@ GlobeTrotter is a server-first Next.js application. React Server Components read
 
 ## Domain model
 
-`User` owns `Trip`; a trip contains ordered `TripStop` records, each linked to `City`. Ordered `ItineraryActivity` records connect stops to catalog `Activity` records. `TripShare` and `PublicShareLink` model private and public sharing separately. `SavedDestination` is a user-city join. `UserPreference` is a one-to-one extension. `CommunityPost` belongs to an author and can optionally reference a trip.
+`User` owns `Trip`; a trip contains ordered `TripStop` records, each linked to a `City` with a persisted geographic center. Ordered `ItineraryActivity` records connect stops to catalog `Activity` records. `TripShare` and `PublicShareLink` model private and public sharing separately. `SavedDestination` is a user-city join. `UserPreference` is a one-to-one extension. `CommunityPost` belongs to an author and can optionally reference a trip.
+
+## Route mapping
+
+The authorized route page reads the same ordered stops as the itinerary. A client-only MapLibre renderer connects `[longitude, latitude]` coordinates as GeoJSON, fits the camera to the route, and keeps its numbered map markers synchronized with an accessible HTML stop list. Great-circle distance calculations live in `lib/maps/` and remain independent of the rendering provider. The visual basemap uses OpenFreeMap without an application API key; trip data and calculations continue to render in the side panel if third-party tiles are unavailable.
 
 ## Sharing permissions
 
