@@ -1,0 +1,17 @@
+import { z } from "zod";
+
+export const entityIdSchema = z.string().cuid("Invalid record identifier");
+
+export const citySearchSchema = z.object({
+  q: z.string().trim().max(100).optional().default(""),
+  country: z.string().trim().max(80).optional().default(""),
+  region: z.string().trim().max(80).optional().default(""),
+});
+
+export const activitySearchSchema = z.object({
+  q: z.string().trim().max(100).optional().default(""),
+  city: z.string().trim().max(100).optional().default(""),
+  category: z.string().trim().max(60).optional().default(""),
+  maxCost: z.coerce.number().positive().optional().or(z.literal("")),
+  maxDuration: z.coerce.number().int().positive().optional().or(z.literal("")),
+});

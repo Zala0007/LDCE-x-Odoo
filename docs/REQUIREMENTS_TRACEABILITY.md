@@ -7,10 +7,10 @@
 | Protected app shell | Prompt M1 | authenticated routes | Session | AppShell, UserMenu | auth policy tests | M1 |
 | Create trip | PDF §3, prompt M1 | `/trips/new` | Trip | TripForm, trip actions | trip validator tests | M1 |
 | My Trips CRUD | PDF §4, prompt M1 | `/trips`, `/trips/[tripId]/edit` | Trip, TripStop | TripCard, repository | authorization tests | M1 |
-| Dashboard | PDF §2, prompt M2 | `/dashboard` | Trip, City | dashboard queries/cards | dashboard tests | Planned M2 |
-| City search | PDF §7, prompt M2 | `/trips/[tripId]/cities` | City, TripStop | city repository | discovery tests | Planned M2 |
-| Activity search | PDF §8, prompt M2 | `/trips/[tripId]/activities` | Activity, ItineraryActivity | activity repository | filter tests | Planned M2 |
-| Saved destinations | PDF §12, prompt M2 | `/saved` | SavedDestination | destination actions | persistence tests | Planned M2 |
+| Dashboard | PDF §2, prompt M2 | `/dashboard` | Trip, City | dashboard repository/cards | seed + build tests | M2 complete |
+| City search | PDF §7, prompt M2 | `/trips/[tripId]/cities`, `/explore` | City, TripStop | discovery repository/cards | discovery filter tests | M2 complete |
+| Activity search | PDF §8, prompt M2 | `/trips/[tripId]/activities` | Activity, ItineraryActivity | activity repository/cards | discovery filter tests | M2 complete |
+| Saved destinations | PDF §12, prompt M2 | `/saved` | SavedDestination | destination actions | schema/build tests | M2 complete |
 | Itinerary builder | PDF §5, prompt M3 | `/trips/[tripId]/builder` | TripStop, ItineraryActivity | builder + ordering service | builder tests | Planned M3 |
 | Itinerary view | PDF §6, prompt M3 | `/trips/[tripId]` | Trip, TripStop, ItineraryActivity | itinerary timeline | render tests | Planned M3 |
 | Budget breakdown | PDF §9, prompt M3 | `/trips/[tripId]/budget` | Trip, stops, activities | budget service/charts | calculation tests | Planned M3 |
