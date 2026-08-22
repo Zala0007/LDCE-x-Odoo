@@ -14,13 +14,13 @@ const links = [
   { href: "/profile", label: "Profile", icon: UserRound },
 ];
 
-export function NavLinks({ mobile = false }: { mobile?: boolean }) {
+export function NavLinks() {
   const pathname = usePathname();
   return (
-    <nav className={mobile ? "mobile-nav" : "sidebar-nav"} aria-label={mobile ? "Mobile navigation" : "Application navigation"}>
+    <nav className="top-nav" aria-label="Application navigation">
       {links.map(({ href, label, icon: Icon }) => {
         const active = pathname === href || (href === "/trips" && pathname.startsWith("/trips"));
-        return <Link key={href} href={href} className={cn("nav-link", active && "nav-link-active")} aria-current={active ? "page" : undefined}><Icon size={mobile ? 20 : 19} /><span>{label}</span></Link>;
+        return <Link key={href} href={href} className={cn("nav-link", active && "nav-link-active")} aria-current={active ? "page" : undefined}><Icon size={17} /><span>{label}</span></Link>;
       })}
     </nav>
   );
