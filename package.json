@@ -16,7 +16,8 @@
     "docs:screenshots": "npm run build && npm run docs:fixtures && node scripts/capture-screenshots.mjs",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:seed": "tsx prisma/seed.ts",
+    "db:seed:vish-trips": "tsx scripts/seed-vishvarajsinh-trips.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",
