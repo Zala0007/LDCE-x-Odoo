@@ -16,12 +16,29 @@ async function main() {
       update: mappedCity,
       create: mappedCity,
     });
-    await prisma.activity.deleteMany({ where: { cityId: city.id } });
-    await prisma.activity.createMany({
-      data: buildActivities(seed).map((activity) => ({
-        ...activity,
+    const activities = buildActivities(seed);
+    for (const activity of activities) {
+      const existing = await prisma.activity.findFirst({
+        where: { cityId: city.id, name: activity.name },
+        select: { id: true },
+      });
+      if (existing) {
+        await prisma.activity.update({
+          where: { id: existing.id },
+          data: activity,
+        });
+      } else {
+        await prisma.activity.create({
+          data: { ...activity, cityId: city.id },
+        });
+      }
+    }
+    await prisma.activity.deleteMany({
+      where: {
         cityId: city.id,
-      })),
+        name: { notIn: activities.map((activity) => activity.name) },
+        itineraryUses: { none: {} },
+      },
     });
   }
   const counts = await Promise.all([
