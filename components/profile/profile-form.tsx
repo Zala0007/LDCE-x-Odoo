@@ -1,0 +1,14 @@
+"use client";
+
+import { useActionState } from "react";
+import type { ActionState } from "@/lib/action-state";
+import { initialActionState } from "@/lib/action-state";
+import { FormField, TextAreaField } from "@/components/ui/form-field";
+import { SubmitButton } from "@/components/ui/submit-button";
+
+type Profile = { firstName: string; lastName: string; email: string; image: string | null; phone: string | null; city: string | null; country: string | null; bio: string | null; preferences: { language: string; currency: string; emailNotifications: boolean } | null };
+
+export function ProfileForm({ profile, action }: { profile: Profile; action: (state: ActionState, formData: FormData) => Promise<ActionState> }) {
+  const [state, formAction] = useActionState(action, initialActionState);
+  return <form action={formAction} className="profile-form">{state.message ? <p className={state.success ? "form-success" : "form-alert"}>{state.message}</p> : null}<div className="form-grid"><FormField label="First name" name="firstName" defaultValue={profile.firstName} error={state.fieldErrors?.firstName?.[0]} required /><FormField label="Last name" name="lastName" defaultValue={profile.lastName} error={state.fieldErrors?.lastName?.[0]} required /></div><FormField label="Email" name="email" type="email" defaultValue={profile.email} error={state.fieldErrors?.email?.[0]} required /><FormField label="Profile photo URL" name="image" type="url" defaultValue={profile.image ?? ""} error={state.fieldErrors?.image?.[0]} /><FormField label="Phone" name="phone" type="tel" defaultValue={profile.phone ?? ""} error={state.fieldErrors?.phone?.[0]} /><div className="form-grid"><FormField label="City" name="city" defaultValue={profile.city ?? ""} /><FormField label="Country" name="country" defaultValue={profile.country ?? ""} /></div><TextAreaField label="About your travel style" name="bio" rows={4} defaultValue={profile.bio ?? ""} error={state.fieldErrors?.bio?.[0]} /><div className="form-grid"><label className="field"><span className="field-label">Language</span><select name="language" defaultValue={profile.preferences?.language ?? "en"}><option value="en">English</option><option value="hi">Hindi</option><option value="gu">Gujarati</option><option value="fr">French</option><option value="es">Spanish</option></select></label><label className="field"><span className="field-label">Currency</span><select name="currency" defaultValue={profile.preferences?.currency ?? "INR"}>{["INR","USD","EUR","GBP","JPY"].map((item) => <option key={item}>{item}</option>)}</select></label></div><label className="check-field"><input type="checkbox" name="emailNotifications" defaultChecked={profile.preferences?.emailNotifications ?? true} /><span><strong>Travel updates by email</strong><small>Occasional reminders about trips and shares.</small></span></label><SubmitButton>Save profile</SubmitButton></form>;
+}

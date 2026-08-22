@@ -1,0 +1,7 @@
+"use client";
+
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+
+export function AdminCharts({ tripsOverTime, cities }: { tripsOverTime: Array<{ month: string; trips: number }>; cities: Array<{ name: string; trips: number }> }) {
+  return <div className="admin-chart-grid"><section className="chart-card"><p className="eyebrow">Adoption</p><h2>Trips created over time</h2><div className="bar-chart-box"><ResponsiveContainer width="100%" height="100%"><BarChart data={tripsOverTime}><CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e7e2d8" /><XAxis dataKey="month" tick={{fontSize:10}} axisLine={false} /><YAxis allowDecimals={false} tick={{fontSize:10}} axisLine={false} /><Tooltip /><Bar dataKey="trips" fill="#1e5948" radius={[7,7,0,0]} /></BarChart></ResponsiveContainer></div></section><section className="chart-card"><p className="eyebrow">Demand</p><h2>Most planned cities</h2><div className="bar-chart-box"><ResponsiveContainer width="100%" height="100%"><BarChart data={cities} layout="vertical" margin={{left:20}}><CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e7e2d8" /><XAxis type="number" allowDecimals={false} axisLine={false} /><YAxis type="category" dataKey="name" width={75} tick={{fontSize:10}} axisLine={false} /><Tooltip /><Bar dataKey="trips" fill="#e6775c" radius={[0,7,7,0]} /></BarChart></ResponsiveContainer></div></section></div>;
+}
