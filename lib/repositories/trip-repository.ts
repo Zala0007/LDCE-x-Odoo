@@ -11,6 +11,7 @@ export const tripCardSelect = {
   coverImage: true,
   budget: true,
   status: true,
+  updatedAt: true,
   _count: { select: { stops: true } },
 } satisfies Prisma.TripSelect;
 
@@ -32,11 +33,19 @@ export function listTripsForOwner(ownerId: string) {
 export function findOwnedTrip(id: string, ownerId: string) {
   return db.trip.findFirst({
     where: { id, ownerId },
-    include: { stops: { include: { city: true }, orderBy: { position: "asc" } } },
+    include: {
+      stops: { include: { city: true }, orderBy: { position: "asc" } },
+    },
   });
 }
 
-export function createTrip(ownerId: string, input: TripInput) {
+export async function createTrip(ownerId: string, input: TripInput) {
+  const initialCity = input.initialCityId
+    ? await db.city.findUnique({
+        where: { id: input.initialCityId },
+        select: { id: true, image: true },
+      })
+    : null;
   return db.trip.create({
     data: {
       ownerId,
@@ -44,14 +53,28 @@ export function createTrip(ownerId: string, input: TripInput) {
       description: input.description || null,
       startDate: input.startDate,
       endDate: input.endDate,
-      coverImage: input.coverImage || null,
+      coverImage: input.coverImage || initialCity?.image || null,
       budget: input.budget,
       status: inferredStatus(input),
+      stops: initialCity
+        ? {
+            create: {
+              cityId: initialCity.id,
+              startDate: input.startDate,
+              endDate: input.endDate,
+              position: 0,
+            },
+          }
+        : undefined,
     },
   });
 }
 
-export async function updateOwnedTrip(id: string, ownerId: string, input: TripInput) {
+export async function updateOwnedTrip(
+  id: string,
+  ownerId: string,
+  input: TripInput,
+) {
   const result = await db.trip.updateMany({
     where: { id, ownerId },
     data: {

@@ -27,7 +27,7 @@ Unit tests remain fast and database-independent. Playwright uses an optimized pr
 
 | Layer | Status | Coverage highlight |
 | --- | --- | --- |
-| Unit | 29/29 passed | Authentication, authorization, passwords, trip/itinerary/profile/sharing schemas, catalog, discovery, budget |
+| Unit | 31/31 passed | Authentication, authorization, passwords, trip/itinerary/profile/sharing schemas, catalog, discovery, budget |
 | E2E | 6/6 passed | Landing, login, and complete registration form on desktop and mobile |
 | Static | Passed | ESLint and strict TypeScript |
 | Build | Passed | 23 App Router routes compiled for production |

@@ -1,11 +1,11 @@
 # GlobeTrotter test reports
 
-This directory keeps the test evidence for the He release checkpoint in one place.
+This directory keeps the latest test evidence in one place.
 
 | Report | Format | What it covers |
 | --- | --- | --- |
 | [Release quality summary](./RELEASE_QUALITY.md) | Markdown | Human-readable result highlights, environment, commands, and limitations |
-| [Unit test results](./unit/results.json) | Vitest JSON | 10 suites and 29 validation, authorization, security, catalog, itinerary, and budget tests |
+| [Unit test results](./unit/results.json) | Vitest JSON | 10 suites and 31 validation, authorization, security, catalog, itinerary, and budget tests |
 | [End-to-end report](./e2e/html/index.html) | Playwright HTML | Desktop Chromium and Pixel 7 coverage for public entry and authentication screens |
 | [End-to-end raw results](./e2e/results.json) | Playwright JSON | Machine-readable status, timing, projects, and assertions |
 | [Static analysis](./static-analysis/README.md) | Markdown | ESLint, strict TypeScript, diff integrity, and production compilation |

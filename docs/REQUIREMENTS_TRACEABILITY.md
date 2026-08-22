@@ -1,5 +1,24 @@
 # Requirements traceability
 
+## 12-screen wireframe acceptance map
+
+| Screen | Required experience | Implemented route(s) | Evidence |
+| --- | --- | --- | --- |
+| 1 | Login | `/login`, `/forgot-password`, `/reset-password` | Credentials flow, recovery, validation, responsive auth design |
+| 2 | Registration and traveler details | `/signup`, `/profile` | Name, email, phone, city, country, photo URL, biography, preferences |
+| 3 | Main landing dashboard | `/dashboard`, `/explore` | Hero, destination search/group/filter/sort, popular places, recent/upcoming trips, plan-trip action |
+| 4 | Create a new trip | `/trips/new` | Dates, budget, cover, starting-place suggestions, automatic first itinerary section |
+| 5 | Build itinerary sections | `/trips/[tripId]/builder` | City sections, dates, section budgets, activities, drag-and-drop ordering, add section |
+| 6 | User trip listing | `/trips` | Ongoing, upcoming, draft, and completed groups with search/filter/group/sort |
+| 7 | User profile | `/profile` | Editable traveler details, preplanned trips, previous trips, saved destinations |
+| 8 | Activity/city search | `/explore`, `/trips/[tripId]/cities`, `/trips/[tripId]/activities` | Search, group, filters, sorting, detailed cards, add/save actions |
+| 9 | Itinerary and budget view | `/trips/[tripId]`, `/trips/[tripId]/budget` | Day timeline, activities, expense totals, category breakdown, charts |
+| 10 | Community tab | `/community` | Story creation, linked trips, search, country/type filters, grouping, sorting |
+| 11 | Calendar view | `/trips/[tripId]/calendar` | Month calendar and ordered activity timeline |
+| 12 | Admin panel | `/admin` | Direct section navigation, user management, popular cities/activities, trends and analytics |
+
+Every surface uses the responsive top navigation; there is no side navigation.
+
 | Requirement | Source | Route | Database model | Component/service | Test | Status |
 | --- | --- | --- | --- | --- | --- | --- |
 | Signup/login/logout | PDF §1, prompt M1 | `/signup`, `/login` | User, Account, Session | auth actions/Auth.js | auth validators + password service | M1 |

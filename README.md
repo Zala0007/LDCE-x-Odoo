@@ -8,20 +8,29 @@ The implementation follows the supplied product brief and 12-screen wireframe wh
 
 - Credentials authentication, secure password hashing, account recovery, profiles, and preferences
 - Trip CRUD with status, dates, cover images, descriptions, and budgets
+- Guided starting-city selection that creates the first itinerary section automatically
 - Curated discovery catalog containing 25 cities and 100 activities
-- Search, sorting, filters, estimated pricing, and saved destinations
+- Search, grouping, sorting, filters, estimated pricing, and saved destinations
 - Transactional drag-and-drop itinerary builder with date and ownership integrity
 - Day-by-day itinerary, budget analytics, charts, calendar, and timeline views
 - Private viewer/editor collaboration and discoverable shared trips
 - Public read-only itinerary links with safe trip duplication
 - Searchable traveler community and role-protected admin analytics
-- Responsive desktop/mobile navigation, accessible controls, and polished empty/error/loading states
+- Responsive desktop/mobile top navigation, accessible controls, and polished empty/error/loading states
 
 ## Screenshots
+
+| Login | Registration |
+| --- | --- |
+| [![Login](docs/assets/screenshots/login.png)](docs/assets/screenshots/login.png) | [![Registration](docs/assets/screenshots/registration.png)](docs/assets/screenshots/registration.png) |
 
 | Dashboard | Itinerary builder |
 | --- | --- |
 | [![Dashboard](docs/assets/screenshots/dashboard.png)](docs/assets/screenshots/dashboard.png) | [![Itinerary builder](docs/assets/screenshots/builder.png)](docs/assets/screenshots/builder.png) |
+
+| Plan a new trip | My Trips library |
+| --- | --- |
+| [![Plan a new trip](docs/assets/screenshots/new-trip.png)](docs/assets/screenshots/new-trip.png) | [![My Trips](docs/assets/screenshots/my-trips.png)](docs/assets/screenshots/my-trips.png) |
 
 | Budget analytics | Public itinerary |
 | --- | --- |
@@ -31,7 +40,7 @@ The implementation follows the supplied product brief and 12-screen wireframe wh
 | --- | --- |
 | [![Community](docs/assets/screenshots/community.png)](docs/assets/screenshots/community.png) | [![Admin analytics](docs/assets/screenshots/admin.png)](docs/assets/screenshots/admin.png) |
 
-See the [complete 13-screen desktop/mobile gallery](docs/SCREENSHOTS.md), including Explore, My Trips, calendar, sharing, profile, and mobile dashboard captures.
+See the [complete 17-screen desktop/mobile gallery](docs/SCREENSHOTS.md), including authentication, Explore, My Trips, calendar, sharing, profile trip collections, and mobile dashboard captures.
 
 ## Technology
 
@@ -93,13 +102,13 @@ Detailed local, Docker, admin, and production guidance is in the [setup and depl
 
 ## Testing and report highlights
 
-The He release checkpoint is fully green:
+The latest release checkpoint is fully green:
 
 | Quality gate | Latest result | Report |
 | --- | --- | --- |
 | ESLint | Passed, 0 errors | [Static analysis](test-reports/static-analysis/README.md) |
 | Strict TypeScript | Passed, 0 errors | [Static analysis](test-reports/static-analysis/README.md) |
-| Unit tests | **29/29 passed**, 10 test files | [Vitest JSON](test-reports/unit/results.json) |
+| Unit tests | **31/31 passed**, 10 test files | [Vitest JSON](test-reports/unit/results.json) |
 | End-to-end tests | **6/6 passed**, desktop Chromium + Pixel 7 | [Playwright HTML](test-reports/e2e/html/index.html) · [JSON](test-reports/e2e/results.json) |
 | Production build | Passed, 23 routes compiled | [Static analysis](test-reports/static-analysis/README.md) |
 | Database migration/seed | Passed, 25 cities + 100 activities | [Release quality](test-reports/RELEASE_QUALITY.md) |
@@ -132,7 +141,7 @@ test-reports/
 ├── e2e/html/index.html    # Interactive Playwright report
 ├── e2e/results.json       # Machine-readable Playwright result
 ├── static-analysis/       # Lint, typecheck, build, migration summary
-└── RELEASE_QUALITY.md     # Consolidated He checkpoint evidence
+└── RELEASE_QUALITY.md     # Consolidated release checkpoint evidence
 ```
 
 ## Project organization
@@ -184,4 +193,4 @@ This command builds the production application, prepares a dedicated local docum
 | 3 | K | Itinerary builder, budget engine, calendar/timeline |
 | 4 | He | Sharing, profile, community, admin, QA reports, screenshots, deployment |
 
-The current documentation/report update belongs to **He** and should be committed and pushed from the He account. Automation does not commit or push repository changes.
+The current wireframe-completion and design checkpoint belongs to **V** and should be committed and pushed from the V account. Automation does not commit or push repository changes.

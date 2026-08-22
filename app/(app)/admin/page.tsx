@@ -1,4 +1,12 @@
-import { Activity, CalendarCheck, Globe2, Search, ShieldCheck, Users, WalletCards } from "lucide-react";
+import {
+  Activity,
+  CalendarCheck,
+  Globe2,
+  Search,
+  ShieldCheck,
+  Users,
+  WalletCards,
+} from "lucide-react";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { toggleUserActiveAction } from "@/app/actions/product-actions";
@@ -9,7 +17,143 @@ import { formatCurrency } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
-  const session = await auth(); if (!session?.user?.id) redirect("/login"); if (session.user.role !== "ADMIN") redirect("/dashboard"); const { q = "" } = await searchParams; const data = await adminAnalytics(q.slice(0,100));
-  return <><PageHeader eyebrow="Platform pulse" title="Admin analytics" description="Real usage signals for understanding travelers, journeys, and the places bringing people back." /><section className="admin-metrics"><article><Users /><small>Total users</small><strong>{data.totalUsers}</strong></article><article><CalendarCheck /><small>Total trips</small><strong>{data.totalTrips}</strong></article><article><Globe2 /><small>Public trips</small><strong>{data.publicTrips}</strong></article><article><Activity /><small>Upcoming</small><strong>{data.upcomingTrips}</strong></article><article><WalletCards /><small>Average budget</small><strong>{formatCurrency(data.averageBudget)}</strong></article></section><AdminCharts tripsOverTime={data.tripsOverTime} cities={data.popularCities.map((city) => ({name:city.name,trips:city._count.stops}))} /><div className="admin-lists"><section className="admin-ranked"><p className="eyebrow">Where travelers go</p><h2>Popular cities</h2>{data.popularCities.map((city,index) => <div key={city.name}><b>{index+1}</b><span><strong>{city.name}</strong><small>{city.country}</small></span><em>{city._count.stops} trips</em></div>)}</section><section className="admin-ranked"><p className="eyebrow">What travelers do</p><h2>Popular activities</h2>{data.popularActivities.map((activity,index) => <div key={activity.name}><b>{index+1}</b><span><strong>{activity.name}</strong><small>{activity.category}</small></span><em>{activity._count.itineraryUses} plans</em></div>)}</section></div><section className="admin-users"><div className="section-heading"><div><p className="eyebrow">User administration</p><h2>Travelers</h2></div><form><label><Search size={16} /><input name="q" defaultValue={q} placeholder="Search name or email" /></label></form></div><div className="admin-table"><div className="admin-row admin-row-head"><span>User</span><span>Role</span><span>Trips</span><span>Joined</span><span>Status</span></div>{data.users.map((user) => <div className="admin-row" key={user.id}><span><strong>{user.name}</strong><small>{user.email}</small></span><span><ShieldCheck size={14} />{user.role}</span><span>{user._count.ownedTrips}</span><span>{user.createdAt.toLocaleDateString()}</span><form action={toggleUserActiveAction.bind(null,user.id)}><button className={user.isActive ? "active-user" : "inactive-user"}>{user.isActive ? "Active" : "Inactive"}</button></form></div>)}</div></section></>;
+export default async function AdminPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
+  const session = await auth();
+  if (!session?.user?.id) redirect("/login");
+  if (session.user.role !== "ADMIN") redirect("/dashboard");
+  const { q = "" } = await searchParams;
+  const data = await adminAnalytics(q.slice(0, 100));
+  return (
+    <>
+      <PageHeader
+        eyebrow="Platform pulse"
+        title="Admin analytics"
+        description="Real usage signals for understanding travelers, journeys, and the places bringing people back."
+      />
+      <nav aria-label="Admin sections" className="admin-section-nav">
+        <a href="#overview">Overview</a>
+        <a href="#trends">User trends</a>
+        <a href="#popular">Popular places & activities</a>
+        <a href="#users">Manage users</a>
+      </nav>
+      <section className="admin-metrics" id="overview">
+        <article>
+          <Users />
+          <small>Total users</small>
+          <strong>{data.totalUsers}</strong>
+        </article>
+        <article>
+          <CalendarCheck />
+          <small>Total trips</small>
+          <strong>{data.totalTrips}</strong>
+        </article>
+        <article>
+          <Globe2 />
+          <small>Public trips</small>
+          <strong>{data.publicTrips}</strong>
+        </article>
+        <article>
+          <Activity />
+          <small>Upcoming</small>
+          <strong>{data.upcomingTrips}</strong>
+        </article>
+        <article>
+          <WalletCards />
+          <small>Average budget</small>
+          <strong>{formatCurrency(data.averageBudget)}</strong>
+        </article>
+      </section>
+      <section id="trends">
+        <AdminCharts
+          tripsOverTime={data.tripsOverTime}
+          cities={data.popularCities.map((city) => ({
+            name: city.name,
+            trips: city._count.stops,
+          }))}
+        />
+      </section>
+      <div className="admin-lists" id="popular">
+        <section className="admin-ranked">
+          <p className="eyebrow">Where travelers go</p>
+          <h2>Popular cities</h2>
+          {data.popularCities.map((city, index) => (
+            <div key={city.name}>
+              <b>{index + 1}</b>
+              <span>
+                <strong>{city.name}</strong>
+                <small>{city.country}</small>
+              </span>
+              <em>{city._count.stops} trips</em>
+            </div>
+          ))}
+        </section>
+        <section className="admin-ranked">
+          <p className="eyebrow">What travelers do</p>
+          <h2>Popular activities</h2>
+          {data.popularActivities.map((activity, index) => (
+            <div key={activity.name}>
+              <b>{index + 1}</b>
+              <span>
+                <strong>{activity.name}</strong>
+                <small>{activity.category}</small>
+              </span>
+              <em>{activity._count.itineraryUses} plans</em>
+            </div>
+          ))}
+        </section>
+      </div>
+      <section className="admin-users" id="users">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">User administration</p>
+            <h2>Travelers</h2>
+          </div>
+          <form>
+            <label>
+              <Search size={16} />
+              <input
+                name="q"
+                defaultValue={q}
+                placeholder="Search name or email"
+              />
+            </label>
+          </form>
+        </div>
+        <div className="admin-table">
+          <div className="admin-row admin-row-head">
+            <span>User</span>
+            <span>Role</span>
+            <span>Trips</span>
+            <span>Joined</span>
+            <span>Status</span>
+          </div>
+          {data.users.map((user) => (
+            <div className="admin-row" key={user.id}>
+              <span>
+                <strong>{user.name}</strong>
+                <small>{user.email}</small>
+              </span>
+              <span>
+                <ShieldCheck size={14} />
+                {user.role}
+              </span>
+              <span>{user._count.ownedTrips}</span>
+              <span>{user.createdAt.toLocaleDateString()}</span>
+              <form action={toggleUserActiveAction.bind(null, user.id)}>
+                <button
+                  className={user.isActive ? "active-user" : "inactive-user"}
+                >
+                  {user.isActive ? "Active" : "Inactive"}
+                </button>
+              </form>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  );
 }

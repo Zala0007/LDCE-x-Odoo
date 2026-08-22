@@ -3,7 +3,13 @@ import { activitySearchSchema, citySearchSchema } from "@/lib/validators/discove
 
 describe("discovery filters", () => {
   it("accepts empty city filters", () => {
-    expect(citySearchSchema.parse({})).toEqual({ q: "", country: "", region: "" });
+    expect(citySearchSchema.parse({})).toEqual({
+      q: "",
+      country: "",
+      region: "",
+      group: "none",
+      sort: "popular",
+    });
   });
 
   it("coerces activity cost and duration limits", () => {
@@ -14,5 +20,11 @@ describe("discovery filters", () => {
 
   it("rejects negative filter values", () => {
     expect(activitySearchSchema.safeParse({ maxCost: "-1" }).success).toBe(false);
+  });
+
+  it("accepts supported grouping and sorting while rejecting unknown modes", () => {
+    expect(citySearchSchema.safeParse({ group: "region", sort: "budget" }).success).toBe(true);
+    expect(activitySearchSchema.safeParse({ group: "city", sort: "duration" }).success).toBe(true);
+    expect(citySearchSchema.safeParse({ group: "continent" }).success).toBe(false);
   });
 });

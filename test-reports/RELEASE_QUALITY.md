@@ -1,4 +1,4 @@
-# He release quality report
+# Release quality report
 
 Report date: 22 August 2026  
 Platform: Windows, Node.js 22.17.0  
@@ -10,7 +10,7 @@ Application: Next.js 15.5.23, React 19, Prisma 6.19.3
 | --- | --- | --- |
 | ESLint | Pass, 0 errors | [Static analysis report](./static-analysis/README.md) |
 | TypeScript | Pass, strict `tsc --noEmit` | [Static analysis report](./static-analysis/README.md) |
-| Unit tests | Pass, 29/29 across 10 suites | [Vitest JSON](./unit/results.json) |
+| Unit tests | Pass, 31/31 across 10 suites | [Vitest JSON](./unit/results.json) |
 | Browser tests | Pass, 6/6 across desktop and mobile | [Playwright HTML](./e2e/html/index.html) · [JSON](./e2e/results.json) |
 | Production build | Pass, 23 application routes | [Static analysis report](./static-analysis/README.md) |
 | Prisma migration | Pass against an empty PostgreSQL database | [`migration.sql`](../prisma/migrations/20260822120000_initial_release/migration.sql) |

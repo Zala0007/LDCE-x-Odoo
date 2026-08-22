@@ -2,6 +2,12 @@
 
 These screenshots were captured from the production build at 1440×1000, plus a 390×844 mobile dashboard. They use a reproducible local fixture with realistic trips, itinerary activities, community stories, saved cities, sharing, and admin analytics.
 
+## Authentication
+
+| Login | Registration |
+| --- | --- |
+| [![Login](./assets/screenshots/login.png)](./assets/screenshots/login.png) | [![Registration](./assets/screenshots/registration.png)](./assets/screenshots/registration.png) |
+
 ## Core planning experience
 
 ### Dashboard
@@ -15,6 +21,10 @@ These screenshots were captured from the production build at 1440×1000, plus a 
 ### My Trips
 
 [![My Trips](./assets/screenshots/my-trips.png)](./assets/screenshots/my-trips.png)
+
+### Plan a new trip
+
+[![Plan a new trip](./assets/screenshots/new-trip.png)](./assets/screenshots/new-trip.png)
 
 ### Trip itinerary
 
@@ -51,6 +61,10 @@ These screenshots were captured from the production build at 1440×1000, plus a 
 ### Profile and settings
 
 [![Profile and settings](./assets/screenshots/profile.png)](./assets/screenshots/profile.png)
+
+### Profile trip collections
+
+[![Profile trip collections](./assets/screenshots/profile-trips.png)](./assets/screenshots/profile-trips.png)
 
 ### Admin analytics
 
