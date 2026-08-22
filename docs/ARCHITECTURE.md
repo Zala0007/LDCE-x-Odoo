@@ -1,0 +1,32 @@
+# Architecture
+
+GlobeTrotter is a server-first Next.js application. React Server Components read through repositories, Server Actions handle validated mutations, Auth.js owns signed sessions, and Prisma maps the relational PostgreSQL domain.
+
+## Layers
+
+1. `app/`: routes, layouts, loading/error boundaries, and server actions.
+2. `components/`: reusable presentational and interactive UI.
+3. `lib/validators/`: Zod schemas at every mutation boundary.
+4. `lib/services/`: workflows such as registration and password reset.
+5. `lib/repositories/`: authorized persistence queries.
+6. `lib/auth/`: session helpers and authorization policy.
+7. `lib/storage/`: replaceable cover-image boundary.
+8. `prisma/`: schema, migrations, and seed data.
+9. `tests/`: unit, integration, and later end-to-end coverage.
+
+## Security model
+
+- Credentials are hashed with bcrypt and never returned by repository projections.
+- Auth.js uses signed JWT sessions for credentials compatibility and the Prisma adapter keeps provider/account data relational.
+- Protected layouts redirect anonymous requests before rendering private data.
+- Every trip mutation resolves the authenticated user and includes `ownerId` in its database predicate.
+- Reset tokens use cryptographically secure random bytes; only a SHA-256 digest is stored.
+- Inputs are parsed by Zod on the server. Client checks improve feedback but are not trusted.
+
+## Domain model
+
+`User` owns `Trip`; a trip contains ordered `TripStop` records, each linked to `City`. Ordered `ItineraryActivity` records connect stops to catalog `Activity` records. `TripShare` and `PublicShareLink` model private and public sharing separately. `SavedDestination` is a user-city join. `UserPreference` is a one-to-one extension.
+
+## Extension points
+
+The budget service, itinerary ordering transactions, media storage adapter, notification delivery, and recommendation providers are isolated so later modules can add functionality without placing business logic in UI components.
