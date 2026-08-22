@@ -5,13 +5,18 @@ export default defineConfig({
   fullyParallel: true,
   workers: 2,
   retries: process.env.CI ? 2 : 0,
-  reporter: process.env.CI ? "github" : "list",
+  reporter: [
+    [process.env.CI ? "github" : "list"],
+    ["json", { outputFile: "test-reports/e2e/results.json" }],
+    ["html", { outputFolder: "test-reports/e2e/html", open: "never" }],
+  ],
   globalTeardown: "./tests/e2e/global-teardown.ts",
   use: {
     baseURL: "http://localhost:3000",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
   },
+  outputDir: "test-reports/e2e/artifacts",
   webServer: {
     command: "node scripts/e2e-server.mjs",
     url: "http://localhost:3000",

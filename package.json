@@ -11,6 +11,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "npm run build && playwright test",
+    "test:reports": "npm run test -- --reporter=json --outputFile=test-reports/unit/results.json",
+    "docs:fixtures": "tsx scripts/seed-demo.ts",
+    "docs:screenshots": "npm run build && npm run docs:fixtures && node scripts/capture-screenshots.mjs",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx prisma/seed.ts"
