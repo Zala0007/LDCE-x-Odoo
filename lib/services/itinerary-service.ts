@@ -13,7 +13,7 @@ function within(value: Date, start: Date, end: Date) {
 
 export async function createStop(ownerId: string, tripId: string, input: StopInput) {
   return db.$transaction(async (tx) => {
-    const trip = await tx.trip.findFirst({ where: { id: tripId, ownerId }, select: { id: true, startDate: true, endDate: true } });
+    const trip = await tx.trip.findFirst({ where: { id: tripId, OR: [{ ownerId }, { shares: { some: { userId: ownerId, role: "EDITOR" } } }] }, select: { id: true, startDate: true, endDate: true } });
     if (!trip) throw new ItineraryValidationError("Trip not found");
     if (!within(input.startDate, trip.startDate, trip.endDate) || !within(input.endDate, trip.startDate, trip.endDate)) throw new ItineraryValidationError("Stop dates must stay within the trip dates");
     const city = await tx.city.findUnique({ where: { id: input.cityId }, select: { id: true } });
@@ -25,7 +25,7 @@ export async function createStop(ownerId: string, tripId: string, input: StopInp
 
 export async function updateStop(ownerId: string, tripId: string, stopId: string, input: StopInput) {
   return db.$transaction(async (tx) => {
-    const trip = await tx.trip.findFirst({ where: { id: tripId, ownerId }, select: { startDate: true, endDate: true } });
+    const trip = await tx.trip.findFirst({ where: { id: tripId, OR: [{ ownerId }, { shares: { some: { userId: ownerId, role: "EDITOR" } } }] }, select: { startDate: true, endDate: true } });
     if (!trip) throw new ItineraryValidationError("Trip not found");
     if (!within(input.startDate, trip.startDate, trip.endDate) || !within(input.endDate, trip.startDate, trip.endDate)) throw new ItineraryValidationError("Stop dates must stay within the trip dates");
     const stop = await tx.tripStop.findFirst({ where: { id: stopId, tripId }, select: { id: true } });
@@ -40,7 +40,7 @@ export async function updateStop(ownerId: string, tripId: string, stopId: string
 
 export async function deleteStop(ownerId: string, tripId: string, stopId: string) {
   return db.$transaction(async (tx) => {
-    const trip = await tx.trip.findFirst({ where: { id: tripId, ownerId }, select: { id: true } });
+    const trip = await tx.trip.findFirst({ where: { id: tripId, OR: [{ ownerId }, { shares: { some: { userId: ownerId, role: "EDITOR" } } }] }, select: { id: true } });
     if (!trip) throw new ItineraryValidationError("Trip not found");
     const stop = await tx.tripStop.findFirst({ where: { id: stopId, tripId }, select: { id: true } });
     if (!stop) throw new ItineraryValidationError("Stop not found");
@@ -52,7 +52,7 @@ export async function deleteStop(ownerId: string, tripId: string, stopId: string
 
 export async function reorderStops(ownerId: string, tripId: string, orderedIds: string[]) {
   return db.$transaction(async (tx) => {
-    const trip = await tx.trip.findFirst({ where: { id: tripId, ownerId }, select: { id: true } });
+    const trip = await tx.trip.findFirst({ where: { id: tripId, OR: [{ ownerId }, { shares: { some: { userId: ownerId, role: "EDITOR" } } }] }, select: { id: true } });
     if (!trip) throw new ItineraryValidationError("Trip not found");
     const existing = await tx.tripStop.findMany({ where: { tripId }, select: { id: true } });
     if (existing.length !== orderedIds.length || existing.some((item) => !orderedIds.includes(item.id))) throw new ItineraryValidationError("Stop order is incomplete");
@@ -63,7 +63,7 @@ export async function reorderStops(ownerId: string, tripId: string, orderedIds: 
 
 export async function addItineraryActivity(ownerId: string, tripId: string, stopId: string, input: ActivityInput) {
   return db.$transaction(async (tx) => {
-    const stop = await tx.tripStop.findFirst({ where: { id: stopId, tripId, trip: { ownerId } }, select: { id: true, cityId: true, startDate: true, endDate: true } });
+    const stop = await tx.tripStop.findFirst({ where: { id: stopId, tripId, trip: { OR: [{ ownerId }, { shares: { some: { userId: ownerId, role: "EDITOR" } } }] } }, select: { id: true, cityId: true, startDate: true, endDate: true } });
     if (!stop) throw new ItineraryValidationError("Stop not found");
     if (!within(input.date, stop.startDate, stop.endDate)) throw new ItineraryValidationError("Activity date must stay within the stop dates");
     const activity = await tx.activity.findFirst({ where: { id: input.activityId, cityId: stop.cityId }, select: { id: true, estimatedCost: true } });
@@ -74,13 +74,13 @@ export async function addItineraryActivity(ownerId: string, tripId: string, stop
 }
 
 export async function removeItineraryActivity(ownerId: string, tripId: string, itineraryActivityId: string) {
-  const result = await db.itineraryActivity.deleteMany({ where: { id: itineraryActivityId, tripStop: { tripId, trip: { ownerId } } } });
+  const result = await db.itineraryActivity.deleteMany({ where: { id: itineraryActivityId, tripStop: { tripId, trip: { OR: [{ ownerId }, { shares: { some: { userId: ownerId, role: "EDITOR" } } }] } } } });
   if (!result.count) throw new ItineraryValidationError("Activity not found");
 }
 
 export async function reorderActivities(ownerId: string, tripId: string, stopId: string, orderedIds: string[]) {
   return db.$transaction(async (tx) => {
-    const stop = await tx.tripStop.findFirst({ where: { id: stopId, tripId, trip: { ownerId } }, select: { id: true } });
+    const stop = await tx.tripStop.findFirst({ where: { id: stopId, tripId, trip: { OR: [{ ownerId }, { shares: { some: { userId: ownerId, role: "EDITOR" } } }] } }, select: { id: true } });
     if (!stop) throw new ItineraryValidationError("Stop not found");
     const existing = await tx.itineraryActivity.findMany({ where: { tripStopId: stopId }, select: { id: true } });
     if (existing.length !== orderedIds.length || existing.some((item) => !orderedIds.includes(item.id))) throw new ItineraryValidationError("Activity order is incomplete");

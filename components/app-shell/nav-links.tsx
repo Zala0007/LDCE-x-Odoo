@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bookmark, Compass, LayoutDashboard, Map, UserRound } from "lucide-react";
+import { Bookmark, Compass, LayoutDashboard, Map, MessageCircle, UserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -10,6 +10,7 @@ const links = [
   { href: "/trips", label: "My Trips", icon: Map },
   { href: "/explore", label: "Explore", icon: Compass },
   { href: "/saved", label: "Saved", icon: Bookmark },
+  { href: "/community", label: "Community", icon: MessageCircle },
   { href: "/profile", label: "Profile", icon: UserRound },
 ];
 

@@ -15,8 +15,8 @@
 | Itinerary view | PDF §6, prompt M3 | `/trips/[tripId]` | Trip, TripStop, ItineraryActivity | day timeline | budget/build tests | M3 complete |
 | Budget breakdown | PDF §9, prompt M3 | `/trips/[tripId]/budget` | Trip, stops, activities | central budget service + Recharts | budget service tests | M3 complete |
 | Calendar/timeline | PDF §10, prompt M3 | `/trips/[tripId]/calendar` | ItineraryActivity | calendar/timeline + persistent ordering | validator/build tests | M3 complete |
-| Public sharing/copy | PDF §11, prompt M4 | `/share/[slug]` | PublicShareLink | sharing/copy service | sharing tests | Planned M4 |
-| Friend sharing | Problem statement, prompt M4 | trip settings | TripShare | sharing service | authorization tests | Planned M4 |
-| Profile/settings | PDF §12, prompt M4 | `/profile` | User, UserPreference | profile form/actions | profile tests | Planned M4 |
-| Admin analytics | PDF §13, prompt M4 | `/admin` | User, Trip, City, Activity | analytics service | role/stat tests | Planned M4 |
-| Community feed | Excalidraw screen 10, overall vision | `/community` | CommunityPost, User | community service/cards | feed authorization tests | Planned He |
+| Public sharing/copy | PDF §11, prompt M4 | `/share/[slug]` | PublicShareLink | sharing/copy service | sharing validators + E2E | M4 complete |
+| Friend sharing | Problem statement, prompt M4 | `/trips/[tripId]/share` | TripShare | sharing service + permission-aware itinerary | sharing + authorization tests | M4 complete |
+| Profile/settings | PDF §12, prompt M4 | `/profile` | User, UserPreference | profile form/actions | profile validators | M4 complete |
+| Admin analytics | PDF §13, prompt M4 | `/admin` | User, Trip, City, Activity | live aggregate queries + charts | role/build tests | M4 complete |
+| Community feed | Excalidraw screen 10, overall vision | `/community` | CommunityPost, User, Trip | searchable feed + post actions | community validators | M4 complete |

@@ -64,8 +64,10 @@ model CommunityPost {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  trip      Trip?    @relation(fields: [tripId], references: [id], onDelete: SetNull)
 
   @@index([authorId, createdAt])
+  @@index([tripId])
   @@index([isPublic, createdAt])
 }
 
@@ -116,21 +118,22 @@ model PasswordResetToken {
 }
 
 model Trip {
-  id          String           @id @default(cuid())
-  ownerId     String
-  name        String
-  description String?          @db.Text
-  startDate   DateTime
-  endDate     DateTime
-  coverImage  String?
-  budget      Float?
-  status      TripStatus       @default(DRAFT)
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
-  owner       User             @relation("TripOwner", fields: [ownerId], references: [id], onDelete: Cascade)
-  stops       TripStop[]
-  shares      TripShare[]
-  publicLink  PublicShareLink?
+  id             String           @id @default(cuid())
+  ownerId        String
+  name           String
+  description    String?          @db.Text
+  startDate      DateTime
+  endDate        DateTime
+  coverImage     String?
+  budget         Float?
+  status         TripStatus       @default(DRAFT)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  owner          User             @relation("TripOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  stops          TripStop[]
+  shares         TripShare[]
+  publicLink     PublicShareLink?
+  communityPosts CommunityPost[]
 
   @@index([ownerId, startDate])
   @@index([status])

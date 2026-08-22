@@ -1,0 +1,32 @@
+services:
+  database:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: globetrotter
+      POSTGRES_USER: globetrotter
+      POSTGRES_PASSWORD: globetrotter
+    volumes:
+      - globetrotter_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U globetrotter -d globetrotter"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://globetrotter:globetrotter@database:5432/globetrotter?schema=public
+      AUTH_SECRET: ${AUTH_SECRET:-change-this-before-production}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+    command: ["sh", "-c", "npx prisma migrate deploy && node server.js"]
+
+volumes:
+  globetrotter_postgres:
